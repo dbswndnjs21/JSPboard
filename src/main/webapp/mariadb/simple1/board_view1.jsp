@@ -58,7 +58,7 @@
 			wip = rs.getString("wip");
 			wdate = rs.getString("wdate");
 			hit = rs.getString("hit");
-			content = rs.getString("content");
+			content = rs.getString("content").replaceAll("\n", "<br>");
 		}
 	}catch (NamingException e){
 		System.out.println("[에러]" + e.getMessage());

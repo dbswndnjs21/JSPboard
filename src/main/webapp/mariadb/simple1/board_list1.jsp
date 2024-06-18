@@ -17,6 +17,8 @@
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
+	int totalRecords = 0;
+
 	StringBuilder sbHtml = new StringBuilder();
 
 	try {
@@ -25,10 +27,15 @@
 		DataSource dataSource = (DataSource) envCtx.lookup("jdbc/mariadb2");
 
 		conn = dataSource.getConnection();
-		String sql = "select seq, subject, writer, wdate, hit from board1 order by seq desc";
+		String sql = "select seq, subject, writer, wdate, hit, datediff(now(), wdate) wgap from board1 order by seq desc";
 		pstmt = conn.prepareStatement(sql);
 
 		rs = pstmt.executeQuery();
+
+		rs.last(); // 마지막까지 읽고
+		totalRecords = rs.getRow();  // 읽은 갯수 세고
+		rs.beforeFirst(); // 다시 처음으로 돌려주기
+
 		while (rs.next()) {
 			//System.out.println(rs.getString("seq"));
 			String seq = rs.getString("seq");
@@ -36,11 +43,17 @@
 			String writer = rs.getString("writer");
 			String wdate = rs.getString("wdate").substring(2, 10);
 			String hit = rs.getString("hit");
+			int wgap = rs.getInt("wgap");
 
 			sbHtml.append("<tr>");
 			sbHtml.append("<td>&nbsp;</td>");
 			sbHtml.append("<td>" + seq +"</td>");
-			sbHtml.append("<td class='left'><a href='board_view1.jsp?seq="+seq+"'>" + subject +"</a>&nbsp;<img src='../../images/icon_new.gif' alt='NEW'></td>");
+			sbHtml.append("<td class='left'>");
+			sbHtml.append("<a href='board_view1.jsp?seq="+seq+"'>" + subject +"</a>&nbsp;");
+			if (wgap == 0  ) { // 오늘 나온 글이면 new 사진 붙고
+				sbHtml.append("<img src='../../images/icon_new.gif' alt='NEW'></td>");
+			}
+			sbHtml.append("</td>"); // 아니면 td 닫음
 			sbHtml.append("<td>"+ writer +"</td>");
 			sbHtml.append("<td>" + wdate + "</td>");
 			sbHtml.append("<td>"+ hit + "</td>");
@@ -87,7 +100,7 @@
 	<div class="contents_sub">
 		<div class="board_top">
 			<div class="bold">
-				총 <span class="txt_orange">1</span>건
+				총 <span class="txt_orange"><%=totalRecords%></span>건
 			</div>
 		</div>
 

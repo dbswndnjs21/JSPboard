@@ -21,7 +21,11 @@
 //데이터 받고
     String seq = request.getParameter("seq");
     String subject = request.getParameter("subject");
-    String mail = request.getParameter("mail1" ) + "@" + request.getParameter("mail2");
+
+    String mail = "";
+    if (!request.getParameter("mail1").equals("") && !request.getParameter("mail2").equals("")) {
+        mail = request.getParameter("mail1") + "@" + request.getParameter("mail2");
+    }
     String password = request.getParameter("password");
     String content = request.getParameter("content");
 

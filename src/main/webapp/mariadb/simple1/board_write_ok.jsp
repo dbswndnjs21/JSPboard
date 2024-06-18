@@ -23,7 +23,10 @@
     String writer = request.getParameter("writer");
     //String mail1 = request.getParameter("mail1");
     //String mail2 = request.getParameter("mail2");
-    String mail = request.getParameter("mail1" ) + "@" + request.getParameter("mail2");
+	String mail = "";
+	if (!request.getParameter("mail1").equals("") && !request.getParameter("mail2").equals("")) {
+		mail = request.getParameter("mail1") + "@" + request.getParameter("mail2");
+	}
     String password = request.getParameter("password");
     String content = request.getParameter("content");
     String wip = request.getRemoteAddr();
