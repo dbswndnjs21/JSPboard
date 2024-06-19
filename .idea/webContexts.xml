@@ -3,6 +3,7 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/mariadb/page1/board_list1.jsp" value="file://$PROJECT_DIR$/src/main/webapp/mariadb/page1" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/mariadb/simple1/board_delete_ok.jsp" value="file://$PROJECT_DIR$/src/main/webapp/mariadb/simple1" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/mariadb/simple1/board_list1.jsp" value="file://$PROJECT_DIR$/src/main/webapp/mariadb/simple1" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/mariadb/simple1/board_write_ok.jsp" value="file://$PROJECT_DIR$/src/main/webapp/mariadb/simple1" />
